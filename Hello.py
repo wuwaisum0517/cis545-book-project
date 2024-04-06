@@ -20,18 +20,32 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="CIS 545 Group Project Website",
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Welcome to CIS 545 Group Project website! 👋")
 
     st.sidebar.success("Select a demo above.")
 
     st.markdown(
         """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
+        ### Our Team:
+        
+        ### Project Explaination and Detail
+        
+        
+        **Description**  
+        This is our CIS 545 Project.
+        Our intention is to develop a robust methodology for predicting which books a user will like given their previous 
+        ratings. The general strategy will be to compute the predicted rating of all the other books in the data set based 
+        on the user’s information, then output those with the highest predicted ratings.
+        
+        ### Technology uesd:
+        AWS
+        
+        Streamlit
+        
         **👈 Select a demo from the sidebar** to see some examples
         of what Streamlit can do!
         ### Want to learn more?
