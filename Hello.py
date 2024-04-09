@@ -24,7 +24,7 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# Welcome to CIS 545 Group Project website! 👋")
+    st.write("# Welcome to Our CIS 545 Group Project website! 👋")
 
     st.sidebar.success("Select a demo above.")
 
@@ -32,11 +32,19 @@ def run():
         """
         ### Our Team:
         
-        ### Project Explaination and Detail
+        Nami Kim
+        
+        Mason Liebe
+        
+        Wai-Sum Wu
+        
+        San Kim
+
+        ### Project Explanation and Detail
         
         
         **Description**  
-        This is our CIS 545 Project.
+        This is our CIS 545 Final Project.
         Our intention is to develop a robust methodology for predicting which books a user will like given their previous 
         ratings. The general strategy will be to compute the predicted rating of all the other books in the data set based 
         on the user’s information, then output those with the highest predicted ratings.
@@ -46,17 +54,9 @@ def run():
         
         Streamlit
         
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+        Data courtesy of the [Book Recommendation Dataset] (https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/)
+        from Kaggle.
+
     """
     )
 
