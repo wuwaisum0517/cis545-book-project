@@ -25,8 +25,16 @@ from matplotlib import cm
 
 def book_recommendation():
     def get_data():
-        AWS_BUCKET_URL = "https://cis5450-project-test.s3.amazonaws.com/"
-        df_books = pd.read_csv(AWS_BUCKET_URL + "cleaned_data_small.csv",encoding="utf-8")
+        # AWS_BUCKET_URL = "https://cis5450-project-test.s3.amazonaws.com/"
+        # df_books = pd.read_csv(AWS_BUCKET_URL + "cleaned_data_small.csv",encoding="utf-8")
+        # Get the current file's directory
+        current_dir = os.path.dirname(__file__)
+
+        # Construct the absolute file path
+        csv_path = os.path.join(current_dir, "cleaned_data.csv")
+        # csv_path = os.path.join(current_dir, "cleaned_data_small.csv") # for the smaller data set testing
+
+        df_books = pd.read_csv(csv_path, encoding="utf-8")
         return df_books
 
     try:
