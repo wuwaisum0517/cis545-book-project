@@ -49,12 +49,25 @@ def run():
         ratings. The general strategy will be to compute the predicted rating of all the other books in the data set based 
         on the user’s information, then output those with the highest predicted ratings.
         
-        ### Technology uesd:
+        ### Technology used:
         AWS
         
         Streamlit
         
-        Data courtesy of the [Book Recommendation Dataset] (https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/)
+        ### Python Package
+        numpy
+        
+        pandas
+            
+        pydeck
+
+        matplotlib
+            
+        seaborn
+        
+        mysql
+        
+        Data courtesy of the [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/)
         from Kaggle.
 
     """
