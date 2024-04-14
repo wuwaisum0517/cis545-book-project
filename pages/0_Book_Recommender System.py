@@ -102,30 +102,96 @@ def book_recommendation():
                         'Decade-Of-Publication']
 
         return execute_sql_query(mydb,query, column_names)
+
+    def get_data_by_isbn(mydb, isbn_list):
+        """
+        Input: cursor from get_data_mysql_connection
+        Output: head(10) SQL Data DataFrame
+        """
+        list_of_isbn = "', '".join(isbn_list)
+
+
+        query = "SELECT * FROM clean_table WHERE ISBN IN ('{}')".format(list_of_isbn)
+
+        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
+                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
+                        'Decade-Of-Publication']
+
+        return execute_sql_query(mydb,query, column_names)
+
+    def getISBNOnlyData(mydb):
+        query = "SELECT DISTINCT ISBN FROM clean_table"
+
+        column_names = ['ISBN']
+
+        return execute_sql_query(mydb,query, column_names)
+
+    def get_full_list_book_title_data(mydb):
+        query = "SELECT DISTINCT Book_Title FROM clean_table"
+
+        column_names = ['Book-Title']
+
+        return execute_sql_query(mydb,query, column_names)
+
+    def get_book_data_by_title(mydb, book_list):
+        """
+        Input: cursor from get_data_mysql_connection
+        Output: head(10) SQL Data DataFrame
+        """
+        list_of_books = "\", \"".join(book_list)
+
+
+        query = "SELECT * FROM clean_table WHERE Book_Title IN (\"{}\")".format(list_of_books)
+
+        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
+                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
+                        'Decade-Of-Publication']
+        st.write("Debug log:get_book_data_by_title "+query)
+        return execute_sql_query(mydb,query, column_names)
+
+
     try:
         """
-        The starting point
+        The starting point of the program
         """
         # connector to SQL server
         mydb = mysql_connection()
-        # execute SQL code
-        df = getState(mydb)
 
-        isbn_input = st.multiselect(
-            "Choose a Book", list(df['ISBN']), ['0440234743']
+        book_list = ['The Testament','Harry Potter and the Goblet of Fire (Book 4)','1984']
+        # execute SQL code
+
+        df_title_only = get_full_list_book_title_data(mydb)
+
+        book_input = st.multiselect(
+            "Choose a Book", list(df_title_only['Book-Title']), book_list
         )
 
-        if not isbn_input:
-            st.error("Please select at least one ISBN.")
+
+        if not book_input:
+            st.error("Please select at least one Book.")
         else:
-            data = df[['ISBN', 'Book-Title', 'Book-Author']]
-            fig, ax = plt.subplots(figsize=(8, 8))
-            fig.patch.set_visible(False)
-            ax.axis('off')
-            ax.axis('tight')
-            ax.table(cellText=data.values, colLabels=data.columns, loc='center')
-            fig.tight_layout()
-            st.pyplot(plt.gcf())  # instead of plt.show()
+            st.write("Selected Book: ", book_input)
+            df_target = get_book_data_by_title(mydb,book_input)
+
+            st.write("")
+            st.write("Section Showing the data the user selected")
+            st.write(df_target)
+
+            st.write("")
+            st.write("Clicking a button to refresh")
+
+            st.write("")
+            st.write("Section Showing prediction ")
+
+            # below the code for plt print the information
+            # data = df[['ISBN', 'Book-Title', 'Book-Author']]
+            # fig, ax = plt.subplots(figsize=(8, 8))
+            # fig.patch.set_visible(False)
+            # ax.axis('off')
+            # ax.axis('tight')
+            # ax.table(cellText=data.values, colLabels=data.columns, loc='center')
+            # fig.tight_layout()
+            # st.pyplot(plt.gcf())  # instead of plt.show()
 
 
     except URLError as e:
@@ -141,18 +207,9 @@ def book_recommendation():
 
 
 st.set_page_config(page_title="Book Recommender System Demo", page_icon="📊")
-
 st.markdown("# Book Recommender System")
 st.sidebar.header("Book Recommender System")
 
-st.write("")
-st.write("Section Showing the data the user selected")
-
-st.write("")
-st.write("Clicking a button to refresh")
-
-st.write("")
-st.write("Section Showing prediction ")
 
 book_recommendation()
 show_code(book_recommendation)

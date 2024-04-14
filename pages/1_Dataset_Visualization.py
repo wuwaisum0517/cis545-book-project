@@ -38,6 +38,7 @@ def book_review_count_in_top_15_state(df_state):
     for i, v in enumerate(count_state):
         plot_state.text(i, v, str(v), ha='center')
     st.pyplot(plt.gcf())  # instead of plt.show()
+    return
 # Graph 1 : Book Sales in Top 15 States:
 def book_sales_top_15_cities(df_city):
 
@@ -56,28 +57,52 @@ def book_sales_top_15_cities(df_city):
     for i, v in enumerate(count_city):
         plot_city.text(i, v, str(v), ha='center')
     st.pyplot(plt.gcf())  # instead of plt.show()
+    return
 
+def user_age(df_user_decade):
+    plt.clf()
+    count_user_decade = df_user_decade['Count']
+    cols = ['steelblue' if (x < max(count_user_decade)) else 'crimson' for x in count_user_decade]
 
+    # User decade plot
+    sns.set(rc={'figure.figsize': (12, 6)})
+    sns.set_style('darkgrid', {'grid.color': 'orchid', 'grid.linestyle': 'dashed'})
+    plot_user_decade = sns.barplot(data=df_user_decade, x='User-Decade', y='Count', palette=cols)
+    plot_user_decade.set_title('User\'s Ages at Book Sale')
+    plot_user_decade.set_xticklabels(plot_user_decade.get_xticklabels(), rotation=30)
+    plot_user_decade.set_xlabel('Age')
+    plot_user_decade.set_ylabel('Count')
+    for i, v in enumerate(count_user_decade):
+        plot_user_decade.text(i, v, str(v), ha='center')
+    st.pyplot(plt.gcf())  # instead of plt.show()
+    return
 
 # starting point of the website
 # Write/print on this
 def website_visualization_start():
     """
     The starting website method
-    website write on this
+    Logic: Load data, plot the graph, explain
+    export the Colab df to csv:
+    df_user_decade.to_csv('df_user_decade',index = True)
     """
     try:
 
-
-        df_state = load_state()  # load the data
+        df_state = loading_csv_file("df_state.csv")  # load the data
         book_review_count_in_top_15_state(df_state)
 
-        df_city = load_cities()  # load the data
+
+        df_city =  loading_csv_file("df_city.csv")  # load the data
         book_sales_top_15_cities(df_city)
+
+        df_user_decade = loading_csv_file("df_user_decade.csv")
+        user_age(df_user_decade)
+
+
     except URLError as e:
         st.error(
             """
-            **AWS database connection Problem**
+            **CSV loading**
             Connection error: %s
         """
             % e.reason
@@ -85,30 +110,29 @@ def website_visualization_start():
     return
 
 
-def load_cities():
+
+
+def loading_csv_file (filename):
+    """
+    Input file name, Output dataframe output
+    """
     # AWS_BUCKET_URL = "https://cis5450-project-test.s3.amazonaws.com/"
     # Get the current file's directory
     current_dir = os.path.dirname(__file__)
 
     # Construct the absolute file path
-    csv_path = os.path.join(current_dir, "df_city.csv")
+    csv_path = os.path.join(current_dir, str(filename))
 
     df_books = pd.read_csv(csv_path, encoding="utf-8")
     return df_books
 
-def load_state():
-    # Get the current file's directory
-    current_dir = os.path.dirname(__file__)
 
-    # Construct the absolute file path
-    csv_path = os.path.join(current_dir, "df_state.csv")
-
-    df_state = pd.read_csv(csv_path, encoding="utf-8")
-    return df_state
 
 
 st.set_page_config(page_title="Data Visualization", page_icon="📊")
-website_visualization_start()
+
 st.markdown("Dataset Graph")
 st.sidebar.header("Dataset Graph")
+st.write("###Exploratory Data Analysis")
 st.write("This is the section we show the data from our dataset.")
+website_visualization_start()
