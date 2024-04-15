@@ -9,6 +9,7 @@ SQL Check
 from urllib.error import URLError
 
 import altair as alt
+
 import pandas as pd
 
 import streamlit as st
@@ -25,6 +26,8 @@ import mysql.connector
 
 
 def book_recommendation():
+
+
     def get_data():
         # AWS_BUCKET_URL = "https://cis5450-project-test.s3.amazonaws.com/"
         # df_books = pd.read_csv(AWS_BUCKET_URL + "cleaned_data_small.csv",encoding="utf-8")
@@ -149,11 +152,48 @@ def book_recommendation():
         st.write("Debug log:get_book_data_by_title "+query)
         return execute_sql_query(mydb,query, column_names)
 
+    def get_explicit_df(mydb):
+        """
+        UNUSED FUNCTION, for filtering rows
+        explicit_df = all_ratings[all_ratings['Book-Rating'] != 0]
+        """
+        query = "SELECT * FROM clean_table WHERE Book_Rating IS NOT 0"
+        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
+                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
+                        'Decade-Of-Publication']
+
+        return execute_sql_query(mydb,query, column_names)
+
+    def get_implicit_df(mydb):
+        """
+        UNUSED FUNCTION, for filtering rows
+        implicit_df = all_ratings[all_ratings['Book-Rating'] == 0]
+        """
+        query = "SELECT * FROM clean_table WHERE Book_Rating IS 0"
+        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
+                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
+                        'Decade-Of-Publication']
+
+        return execute_sql_query(mydb, query, column_names)
+    def get_matrix():
+        """
+         This matrix file is generated from :
+         explicit_book_user_matrix(explicit_df, 50, 25)
+
+        """
+        current_dir = os.path.dirname(__file__)
+        file_path = os.path.join(current_dir, 'matrix.csv')
+        loaded_matrix = pd.read_csv(file_path)
+        return loaded_matrix
+
+
 
     try:
         """
         The starting point of the program
         """
+
+        matrix = get_matrix()
         # connector to SQL server
         mydb = mysql_connection()
 
@@ -165,6 +205,9 @@ def book_recommendation():
         book_input = st.multiselect(
             "Choose a Book", list(df_title_only['Book-Title']), book_list
         )
+
+
+
 
 
         if not book_input:

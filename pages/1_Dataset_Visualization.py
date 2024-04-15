@@ -23,12 +23,21 @@ from collections import Counter
 
 def book_review_count_in_top_15_state(df_state):
 
+    """
+    Current Second graph
+    """
+
+    writing = """
+    
+    
+    """
+    st.write(writing)
     # One maximum is crimson color and the rest are steelblue color
     count_state = df_state['Count'][:15]
     cols = ['steelblue' if (x < max(count_state)) else 'crimson' for x in count_state]
 
     # State plot
-    plt.clf()
+    plt.figure()
     sns.set(rc={'figure.figsize': (12, 6)})
     plot_state = sns.barplot(data=df_state[:15], x='State', y='Count', palette=cols)
     plot_state.set_title('Book Sales in Top 15 States')
@@ -43,7 +52,12 @@ def book_review_count_in_top_15_state(df_state):
 def book_sales_top_15_cities(df_city):
 
     # Two maximums are crimson color and the rest are steelblue color
-    plt.clf()
+    writing = """
+
+
+    """
+    st.write(writing)
+    plt.figure()
     count_city = df_city['Count'][:15]
     cols = ['steelblue' if (x < 6700) else 'crimson' for x in count_city]
 
@@ -60,7 +74,12 @@ def book_sales_top_15_cities(df_city):
     return
 
 def user_age(df_user_decade):
-    plt.clf()
+    writing = """
+
+
+    """
+    st.write(writing)
+    plt.figure()
     count_user_decade = df_user_decade['Count']
     cols = ['steelblue' if (x < max(count_user_decade)) else 'crimson' for x in count_user_decade]
 
@@ -77,6 +96,21 @@ def user_age(df_user_decade):
     st.pyplot(plt.gcf())  # instead of plt.show()
     return
 
+def book_review_count_by_country(df_country):
+
+    """
+    1st graph
+    """
+
+    plt.figure()
+    plt.figure(figsize=(5,5))
+    plt.axis('equal')
+    plt.pie(df_country['Count'][:7], labels=df_country['Country'][:7], autopct='%.1f%%')
+    plt.title('Book Sales in All Countries')
+    st.pyplot(plt.gcf())  # instead of plt.show()
+    return
+
+
 # starting point of the website
 # Write/print on this
 def website_visualization_start():
@@ -87,6 +121,19 @@ def website_visualization_start():
     df_user_decade.to_csv('df_user_decade',index = True)
     """
     try:
+        st.title("""Part 1: Data for the Kaggle Dataset""")
+
+        # Create a layout with 10 rows and 2 columns
+        col1, col2 = st.columns(2)
+        with col1:
+            writing = """
+            
+            59.9% of the review data are from United States contain  , and we will focus on that 
+            """
+            st.write(writing)
+        with col2:
+            df_country = loading_csv_file("df_country.csv")
+            book_review_count_by_country(df_country)
 
         df_state = loading_csv_file("df_state.csv")  # load the data
         book_review_count_in_top_15_state(df_state)
@@ -131,8 +178,8 @@ def loading_csv_file (filename):
 
 st.set_page_config(page_title="Data Visualization", page_icon="📊")
 
-st.markdown("Dataset Graph")
+
 st.sidebar.header("Dataset Graph")
-st.write("###Exploratory Data Analysis")
+st.title("Exploratory Data Analysis")
 st.write("This is the section we show the data from our dataset.")
 website_visualization_start()
