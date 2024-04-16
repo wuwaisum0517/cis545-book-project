@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
 import mysql.connector
-
+from sklearn.metrics.pairwise import cosine_similarity
 
 def book_recommendation():
 
@@ -175,6 +175,28 @@ def book_recommendation():
                         'Decade-Of-Publication']
 
         return execute_sql_query(mydb, query, column_names)
+
+    def book_rating_rating(mydb):
+        """
+        The SQL version of the code below:
+        explicit_df = all_ratings[all_ratings['Book-Rating'] != 0]
+        book_ratings = explicit_df.groupby('Book-Title').agg({
+            'Book-Rating': ['count', 'mean']
+        }).reset_index()
+        """
+        query = """
+        SELECT  
+            Book_Title, COUNT (*),AVG (*)
+        FROM 
+            Clean_table
+        WHERE 
+            Book_Rating IS NOT 0
+        GROUP BY 
+            Book_Title
+        """
+        column_names = ['Book-Title', 'Number of Ratings', 'Average Rating']
+        return execute_sql_query(mydb, query, column_names)
+
     def get_matrix():
         """
          This matrix file is generated from :
@@ -184,9 +206,26 @@ def book_recommendation():
         current_dir = os.path.dirname(__file__)
         file_path = os.path.join(current_dir, 'matrix.csv')
         loaded_matrix = pd.read_csv(file_path)
-        return loaded_matrix
+        return loaded_matrix, cosine_similarity(matrix)
 
 
+    def item_based(similarity_scores, matrix, book_name):
+      '''
+      Make a book recommendtaion based on a single book title
+      uses similarity scores to get an item-based recommendation for a single book title
+      '''
+      index = np.where(matrix.index==book_name)[0][0]
+      recs = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1], reverse=True)[1:6]
+      data = []
+      for i in recs:
+        rec = []
+        temp_df = df_books[df_books['Book-Title'] == matrix.index[i[0]]]
+        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
+        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
+        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
+        rec.append(i[1])  # Append the similarity score
+        data.append(rec)
+      return data
 
     try:
         """

@@ -20,25 +20,47 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
 from collections import Counter
+def publish_to_age(df_user_pub):
+    cmap = sns.diverging_palette(243, 7, as_cmap=True)
+
+    sns.set(rc={'figure.figsize': (10, 8)})
+    matrix_user_pub = sns.heatmap(data=df_user_pub, fmt='g', cmap=cmap)
+    matrix_user_pub.set_xlabel('Decade of Publication')
+    matrix_user_pub.set_ylabel('User Age')
+    matrix_user_pub.set_title('User Ages and Decades of Publication')
+
+def book_publication_distribution(df_pub_decade):
+    plt.figure()
+    # One maximum is crimson color and the rest are steelblue color
+    count_pub_decade = df_pub_decade['Count']
+    cols = ['steelblue' if (x < max(count_pub_decade)) else 'crimson' for x in count_pub_decade]
+
+    # Publication decade plot
+    sns.set(rc={'figure.figsize': (12, 6)})
+    sns.set_style('darkgrid', {'grid.color': 'orchid', 'grid.linestyle': 'dashed'})
+    plot_pub_decade = sns.barplot(data=df_pub_decade, x='Decade-Of-Publication', y='Count', palette=cols)
+    plot_pub_decade.set_title('Decade of Publication')
+    plot_pub_decade.set_xticklabels(plot_pub_decade.get_xticklabels(), rotation=30)
+    plot_pub_decade.set_xlabel('Decade')
+    plot_pub_decade.set_ylabel('Count')
+    for i, v in enumerate(count_pub_decade):
+        plot_pub_decade.text(i, v, str(v), ha='center')
+    st.pyplot(plt.gcf())  # instead of plt.show()
+    return
+
 
 def book_review_count_in_top_15_state(df_state):
+    """
+    2nd Graph
+    """
 
-    """
-    Current Second graph
-    """
-
-    writing = """
-    
-    
-    """
-    st.write(writing)
     # One maximum is crimson color and the rest are steelblue color
     count_state = df_state['Count'][:15]
     cols = ['steelblue' if (x < max(count_state)) else 'crimson' for x in count_state]
 
     # State plot
     plt.figure()
-    sns.set(rc={'figure.figsize': (12, 6)})
+    sns.set(rc={'figure.figsize': (11, 6)})
     plot_state = sns.barplot(data=df_state[:15], x='State', y='Count', palette=cols)
     plot_state.set_title('Book Sales in Top 15 States')
     plot_state.set_xticklabels(plot_state.get_xticklabels(), rotation=30)
@@ -48,15 +70,12 @@ def book_review_count_in_top_15_state(df_state):
         plot_state.text(i, v, str(v), ha='center')
     st.pyplot(plt.gcf())  # instead of plt.show()
     return
+
+
 # Graph 1 : Book Sales in Top 15 States:
 def book_sales_top_15_cities(df_city):
-
     # Two maximums are crimson color and the rest are steelblue color
-    writing = """
 
-
-    """
-    st.write(writing)
     plt.figure()
     count_city = df_city['Count'][:15]
     cols = ['steelblue' if (x < 6700) else 'crimson' for x in count_city]
@@ -72,6 +91,7 @@ def book_sales_top_15_cities(df_city):
         plot_city.text(i, v, str(v), ha='center')
     st.pyplot(plt.gcf())  # instead of plt.show()
     return
+
 
 def user_age(df_user_decade):
     writing = """
@@ -96,14 +116,14 @@ def user_age(df_user_decade):
     st.pyplot(plt.gcf())  # instead of plt.show()
     return
 
-def book_review_count_by_country(df_country):
 
+def book_review_count_by_country(df_country):
     """
     1st graph
     """
 
     plt.figure()
-    plt.figure(figsize=(5,5))
+    plt.figure(figsize=(5, 5))
     plt.axis('equal')
     plt.pie(df_country['Count'][:7], labels=df_country['Country'][:7], autopct='%.1f%%')
     plt.title('Book Sales in All Countries')
@@ -121,31 +141,102 @@ def website_visualization_start():
     df_user_decade.to_csv('df_user_decade',index = True)
     """
     try:
-        st.title("""Part 1: Data for the Kaggle Dataset""")
+        st.header("""Part 1: Data for the Kaggle Dataset""")
 
-        # Create a layout with 10 rows and 2 columns
+
+        ###################################
+
+        sub_header = """
+        1. Which country does the review dataset comes from?
+        """
+        st.subheader(sub_header)
+
         col1, col2 = st.columns(2)
         with col1:
             writing = """
             
-            59.9% of the review data are from United States contain  , and we will focus on that 
+            59.9% of the review data are from United States; for our project we will only focus on United States. 
             """
             st.write(writing)
         with col2:
-            df_country = loading_csv_file("df_country.csv")
+            df_country = loading_csv_file("df_country.csv") #load data
             book_review_count_by_country(df_country)
 
+        ###################################
+        sub_header = """
+        2.1 Which State left the most reviews?
+        """
+        st.subheader(sub_header)
+
+        writing = """
+
+        """
+        st.write(writing)
         df_state = loading_csv_file("df_state.csv")  # load the data
         book_review_count_in_top_15_state(df_state)
 
+        ###################################
+        sub_header = """
+        2.2 Which cities left the most reviews?
+        """
+        st.subheader(sub_header)
 
-        df_city =  loading_csv_file("df_city.csv")  # load the data
+        writing = """
+
+        """
+        st.write(writing)
+        df_city = loading_csv_file("df_city.csv")  # load the data
         book_sales_top_15_cities(df_city)
+
+        ###################################
+        sub_header = """
+        3. Age who left reviews?
+        """
+        st.subheader(sub_header)
+        writing = """
+        
+        """
+        st.write(writing)
 
         df_user_decade = loading_csv_file("df_user_decade.csv")
         user_age(df_user_decade)
+        ###################################
 
+        sub_header = """
+            2.2.2 Publication Decade: 
+        """
+        writing = """
 
+        In our DataSet most of the books are from 1990's
+        """
+        st.subheader(sub_header)
+        st.write(writing)
+        df_pub_decade = loading_csv_file("df_pub_decade.csv")
+        book_publication_distribution(df_pub_decade)
+        ###################################
+        sub_header = """
+            2.2.3 Ages vs Decades
+        """
+        writing = """
+
+        In our DataSet most of the books are from 1990's
+        """
+        st.subheader(sub_header)
+        st.write(writing)
+        df_user_pub = loading_csv_file("df_user_pub.csv")
+        publish_to_age(df_user_pub)
+        ###################################
+        sub_header = """
+            2.3 Book Ratings
+        """
+        writing = """
+
+        In our DataSet most of the books are from 1990's
+        """
+        st.subheader(sub_header)
+        st.write(writing)
+        df_user_pub = loading_csv_file("df_user_pub.csv")
+        publish_to_age(df_user_pub)
     except URLError as e:
         st.error(
             """
@@ -157,9 +248,7 @@ def website_visualization_start():
     return
 
 
-
-
-def loading_csv_file (filename):
+def loading_csv_file(filename):
     """
     Input file name, Output dataframe output
     """
@@ -174,10 +263,7 @@ def loading_csv_file (filename):
     return df_books
 
 
-
-
 st.set_page_config(page_title="Data Visualization", page_icon="📊")
-
 
 st.sidebar.header("Dataset Graph")
 st.title("Exploratory Data Analysis")
