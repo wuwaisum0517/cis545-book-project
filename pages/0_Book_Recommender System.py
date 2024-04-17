@@ -204,8 +204,8 @@ def book_recommendation():
         """
         current_dir = os.path.dirname(__file__)
         file_path = os.path.join(current_dir, 'matrix.csv')
-        loaded_matrix = pd.read_csv(file_path)
-        return loaded_matrix, cosine_similarity(matrix)
+        loaded_matrix = pd.read_csv(file_path, index_col = 'Book-Title')
+        return loaded_matrix, cosine_similarity(loaded_matrix)
 
 
     def item_based(df_books,similarity_scores, matrix, book_name):
