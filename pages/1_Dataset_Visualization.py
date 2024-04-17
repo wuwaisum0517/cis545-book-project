@@ -20,6 +20,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
 from collections import Counter
+
+
 def publish_to_age(df_user_pub):
     cmap = sns.diverging_palette(243, 7, as_cmap=True)
 
@@ -28,6 +30,7 @@ def publish_to_age(df_user_pub):
     matrix_user_pub.set_xlabel('Decade of Publication')
     matrix_user_pub.set_ylabel('User Age')
     matrix_user_pub.set_title('User Ages and Decades of Publication')
+
 
 def book_publication_distribution(df_pub_decade):
     plt.figure()
@@ -143,7 +146,6 @@ def website_visualization_start():
     try:
         st.header("""Part 1: Data for the Kaggle Dataset""")
 
-
         ###################################
 
         sub_header = """
@@ -159,7 +161,7 @@ def website_visualization_start():
             """
             st.write(writing)
         with col2:
-            df_country = loading_csv_file("df_country.csv") #load data
+            df_country = loading_csv_file("df_country.csv")  # load data
             book_review_count_by_country(df_country)
 
         ###################################

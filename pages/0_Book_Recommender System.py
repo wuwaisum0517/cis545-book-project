@@ -25,22 +25,8 @@ from matplotlib import cm
 import mysql.connector
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 def book_recommendation():
-
-
-    def get_data():
-        # AWS_BUCKET_URL = "https://cis5450-project-test.s3.amazonaws.com/"
-        # df_books = pd.read_csv(AWS_BUCKET_URL + "cleaned_data_small.csv",encoding="utf-8")
-        # Get the current file's directory
-        current_dir = os.path.dirname(__file__)
-
-        # Construct the absolute file path
-        csv_path = os.path.join(current_dir, "cleaned_data.csv")
-        # csv_path = os.path.join(current_dir, "cleaned_data_small.csv") # for the smaller data set testing
-
-        df_books = pd.read_csv(csv_path, encoding="utf-8")
-        return df_books
-
     def mysql_connection():
 
         """
@@ -53,8 +39,9 @@ def book_recommendation():
         )
         return mydb
 
-    def execute_sql_query(mydb,query, column_names):
+    def execute_clean_data_sql_query(mydb, query, column_names):
         """
+        The database name IS clean_data
         with mysql_connection information create cursor and return result
 
         """
@@ -63,78 +50,33 @@ def book_recommendation():
         mycursor.execute(query)
         sql_result = mycursor.fetchall()
 
-        dataframe_result = pd.DataFrame(sql_result, columns = column_names)
+        dataframe_result = pd.DataFrame(sql_result, columns=column_names)
         mycursor.close()
         return dataframe_result
 
-    def getFullData(mydb):
+    def get_full_list_book(mydb):
         """
-        Input: cursor from get_data_mysql_connection
-
-        Output: Full COMPLETE data to DataFrame
-
+        return df_books
         """
-        query = "SELECT * FROM clean_table "
+        query = "SELECT * FROM books_table"
 
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
+        column_names = ['ID', 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication','Publisher', 'Image-URL-S',
+                        'Image-URL-M', 'Image-URL-L']
 
-        return execute_sql_query(mydb,query, column_names)
-    def getTop10Data(mydb):
-        """
-        Input: cursor from get_data_mysql_connection
-        Output: head(10) SQL Data DataFrame
-        """
-        query = "SELECT * FROM clean_table LIMIT 10 "
-
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
-
-        return execute_sql_query(mydb,query, column_names)
-    def getState(mydb):
-        """
-        Input: cursor from get_data_mysql_connection
-        Output: head(10) SQL Data DataFrame
-        """
-        query = "SELECT * FROM clean_table WHERE State = 'california'"
-
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
-
-        return execute_sql_query(mydb,query, column_names)
-
-    def get_data_by_isbn(mydb, isbn_list):
-        """
-        Input: cursor from get_data_mysql_connection
-        Output: head(10) SQL Data DataFrame
-        """
-        list_of_isbn = "', '".join(isbn_list)
-
-
-        query = "SELECT * FROM clean_table WHERE ISBN IN ('{}')".format(list_of_isbn)
-
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
-
-        return execute_sql_query(mydb,query, column_names)
-
-    def getISBNOnlyData(mydb):
-        query = "SELECT DISTINCT ISBN FROM clean_table"
-
-        column_names = ['ISBN']
-
-        return execute_sql_query(mydb,query, column_names)
+        return execute_clean_data_sql_query(mydb, query, column_names)
 
     def get_full_list_book_title_data(mydb):
-        query = "SELECT DISTINCT Book_Title FROM clean_table"
+        query = "SELECT DISTINCT Book_Title FROM all_rating"
 
         column_names = ['Book-Title']
 
-        return execute_sql_query(mydb,query, column_names)
+        return execute_clean_data_sql_query(mydb, query, column_names)
+    def get_full_list_book_title_data_with_explicit_rating(mydb):
+        query = "SELECT DISTINCT Book_Title FROM all_rating WHERE Book_Rating !=0;"
+
+        column_names = ['Book-Title']
+
+        return execute_clean_data_sql_query(mydb, query, column_names)
 
     def get_book_data_by_title(mydb, book_list):
         """
@@ -143,129 +85,107 @@ def book_recommendation():
         """
         list_of_books = "\", \"".join(book_list)
 
-
         query = "SELECT * FROM clean_table WHERE Book_Title IN (\"{}\")".format(list_of_books)
 
         column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
                         'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
                         'Decade-Of-Publication']
-        st.write("Debug log:get_book_data_by_title "+query)
-        return execute_sql_query(mydb,query, column_names)
+        return execute_clean_data_sql_query(mydb, query, column_names)
 
     def get_explicit_df(mydb):
         """
         UNUSED FUNCTION, for filtering rows
         explicit_df = all_ratings[all_ratings['Book-Rating'] != 0]
         """
-        query = "SELECT * FROM clean_table WHERE Book_Rating IS NOT 0"
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
+        query = "SELECT * FROM all_rating WHERE Book_Rating IS NOT 0"
+        column_names = ['User-ID', 'ISBN', 'Book-Title', 'Book-Author', 'Book-Rating']
 
-        return execute_sql_query(mydb,query, column_names)
+        return execute_clean_data_sql_query(mydb, query, column_names)
 
     def get_implicit_df(mydb):
         """
         UNUSED FUNCTION, for filtering rows
         implicit_df = all_ratings[all_ratings['Book-Rating'] == 0]
         """
-        query = "SELECT * FROM clean_table WHERE Book_Rating IS 0"
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
+        query = "SELECT * FROM all_rating WHERE Book_Rating IS 0"
+        column_names = ['User-ID', 'ISBN', 'Book-Title', 'Book-Author', 'Book-Rating']
 
-        return execute_sql_query(mydb, query, column_names)
+        return execute_clean_data_sql_query(mydb, query, column_names)
 
-    def book_rating_rating(mydb):
-        """
-        The SQL version of the code below:
-        explicit_df = all_ratings[all_ratings['Book-Rating'] != 0]
-        book_ratings = explicit_df.groupby('Book-Title').agg({
-            'Book-Rating': ['count', 'mean']
-        }).reset_index()
-        """
-        query = """
-        SELECT  
-            Book_Title, COUNT (*),AVG (*)
-        FROM 
-            Clean_table
-        WHERE 
-            Book_Rating IS NOT 0
-        GROUP BY 
-            Book_Title
-        """
-        column_names = ['Book-Title', 'Number of Ratings', 'Average Rating']
-        return execute_sql_query(mydb, query, column_names)
 
-    def get_matrix():
+
+    def get_explict_df_matrix():
         """
          This matrix file is generated from :
          explicit_book_user_matrix(explicit_df, 50, 25)
         """
         current_dir = os.path.dirname(__file__)
-        file_path = os.path.join(current_dir, 'matrix.csv')
-        loaded_matrix = pd.read_csv(file_path, index_col = 'Book-Title')
+        file_path = os.path.join(current_dir, 'explicit_df_matrix.csv')
+        loaded_matrix = pd.read_csv(file_path, index_col='Book-Title')
         return loaded_matrix, cosine_similarity(loaded_matrix)
 
+    def item_based(df_books, explicit_df_matrix, similarity_scores, book_name):
+        '''
+        uses similarity scores to get an item-based recommendation for a single book title
+        Explicit df
+        Input: df_books (full list books), get_explict_df_matrix[0],get_explict_df_matrix[1],bookname
+        output: calculated data output
 
-    def item_based(df_books,similarity_scores, matrix, book_name):
-      '''
-      Make a book recommendation based on a single book title
-      uses similarity scores to get an item-based recommendation for a single book title
-      '''
-      index = np.where(matrix.index==book_name)[0][0]
-      recs = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1], reverse=True)[1:6]
-      data = []
-      for i in recs:
-        rec = []
-        temp_df = df_books[df_books['Book-Title'] == matrix.index[i[0]]]
-        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Title'].values))
-        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Book-Author'].values))
-        rec.extend(list(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].values))
-        rec.append(i[1])  # Append the similarity score
-        data.append(rec)
-      return data
+        '''
+        index = np.where(explicit_df_matrix.index == book_name)[0][0]
+        recs = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:6]
+        data = []
+        for i in recs:
+            rec = []
+            temp_df = df_books[df_books['Book-Title'] == explicit_df_matrix.index[i[0]]]
+            rec.extend(temp_df.drop_duplicates('Book-Title')['Book-Title'].to_list())
+            rec.extend(temp_df.drop_duplicates('Book-Title')['Book-Author'].to_list())
+            rec.extend(temp_df.drop_duplicates('Book-Title')['Image-URL-M'].to_list())
+            rec.append(i[1])  # Append the similarity score
+            data.append(rec)
+        return data
 
     try:
         """
         The starting point of the program
         """
 
-        matrix = get_matrix()
         # connector to SQL server
         mydb = mysql_connection()
 
-        book_list = ['The Testament','Harry Potter and the Goblet of Fire (Book 4)','1984']
-        # execute SQL code
+        book_list = ['The Testament', 'Harry Potter and the Goblet of Fire (Book 4)', '1984']
+        #BELOW execute SQL query
 
-        df_title_only = get_full_list_book_title_data(mydb)
+        # loading the title from database
+        df_title_only = get_full_list_book_title_data_with_explicit_rating(mydb)
+        # load the precomputed matrix and similarity scoure
+        explicit_df_matrix, similarity_scores = get_explict_df_matrix()
+        # load the full list fo data , called df_books
+        df_books = get_full_list_book(mydb)
 
+        # multiselect bar
         book_input = st.multiselect(
             "Choose a Book", list(df_title_only['Book-Title']), book_list
         )
 
-
-
-
-
         if not book_input:
             st.error("Please select at least one Book.")
         else:
-            st.write("Selected Book: ", book_input)
-            df_target = get_book_data_by_title(mydb,book_input)
+            st.write("")
+            st.write("Section Showing prediction ")
+            for book in book_list:
+                st.write("The Name of Book: "+book)
+                st.write(item_based(df_books, explicit_df_matrix, similarity_scores, book))
 
             st.write("")
             st.write("Section Showing the data the user selected")
+
+
+
+            st.write("DEBUG")
+            st.write("Selected Book: ", book_input)
+            df_target = get_book_data_by_title(mydb, book_input)
             st.write(df_target)
-
-            st.write("")
-            st.write("Clicking a button to refresh")
-
-            st.write("")
-            st.write("Section Showing prediction ")
-
-            st.write ("DEBUG")
-
 
             # below the code for plt print the information
             # data = df[['ISBN', 'Book-Title', 'Book-Author']]
@@ -293,7 +213,6 @@ def book_recommendation():
 st.set_page_config(page_title="Book Recommender System Demo", page_icon="📊")
 st.markdown("# Book Recommender System")
 st.sidebar.header("Book Recommender System")
-
 
 book_recommendation()
 show_code(book_recommendation)
