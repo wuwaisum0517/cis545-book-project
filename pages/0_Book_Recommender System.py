@@ -201,7 +201,6 @@ def book_recommendation():
         """
          This matrix file is generated from :
          explicit_book_user_matrix(explicit_df, 50, 25)
-
         """
         current_dir = os.path.dirname(__file__)
         file_path = os.path.join(current_dir, 'matrix.csv')
@@ -209,9 +208,9 @@ def book_recommendation():
         return loaded_matrix, cosine_similarity(matrix)
 
 
-    def item_based(similarity_scores, matrix, book_name):
+    def item_based(df_books,similarity_scores, matrix, book_name):
       '''
-      Make a book recommendtaion based on a single book title
+      Make a book recommendation based on a single book title
       uses similarity scores to get an item-based recommendation for a single book title
       '''
       index = np.where(matrix.index==book_name)[0][0]
@@ -264,6 +263,9 @@ def book_recommendation():
 
             st.write("")
             st.write("Section Showing prediction ")
+
+            st.write ("DEBUG")
+
 
             # below the code for plt print the information
             # data = df[['ISBN', 'Book-Title', 'Book-Author']]
