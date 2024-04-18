@@ -1,10 +1,7 @@
 """
 This is the Book Recommender System Page.
 2024-04-09
-Working 0%
-Testing connection using csv file
-SQL Check
-
+Working 50%
 """
 from urllib.error import URLError
 
@@ -60,7 +57,7 @@ def book_recommendation():
         """
         query = "SELECT * FROM books_table"
 
-        column_names = ['ID', 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication','Publisher', 'Image-URL-S',
+        column_names = ['ID', 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL-S',
                         'Image-URL-M', 'Image-URL-L']
 
         return execute_clean_data_sql_query(mydb, query, column_names)
@@ -71,6 +68,7 @@ def book_recommendation():
         column_names = ['Book-Title']
 
         return execute_clean_data_sql_query(mydb, query, column_names)
+
     def get_full_list_book_title_data_with_explicit_rating(mydb):
         query = "SELECT DISTINCT Book_Title FROM all_rating WHERE Book_Rating !=0;"
 
@@ -112,8 +110,6 @@ def book_recommendation():
 
         return execute_clean_data_sql_query(mydb, query, column_names)
 
-
-
     def get_explict_df_matrix():
         """
          This matrix file is generated from :
@@ -145,6 +141,36 @@ def book_recommendation():
             data.append(rec)
         return data
 
+    def website_data_loading_code(book_list):
+        if len(book_list):
+            st.write("Please select at most 3 books only")
+            return
+        else:
+            st.write("")
+            st.write("Section Showing prediction ")
+            for book in book_list:
+                st.write("The Name of Book: " + book)
+                st.write(item_based(df_books, explicit_df_matrix, similarity_scores, book))
+
+            st.write("")
+            st.write("Section Showing the data the user selected")
+
+            st.write("DEBUG")
+            st.write("Selected Book: ", book_input)
+            df_target = get_book_data_by_title(mydb, book_input)
+            st.write(df_target)
+        return
+
+        # below the code for plt print the information
+        # data = df[['ISBN', 'Book-Title', 'Book-Author']]
+        # fig, ax = plt.subplots(figsize=(8, 8))
+        # fig.patch.set_visible(False)
+        # ax.axis('off')
+        # ax.axis('tight')
+        # ax.table(cellText=data.values, colLabels=data.columns, loc='center')
+        # fig.tight_layout()
+        # st.pyplot(plt.gcf())  # instead of plt.show()
+
     try:
         """
         The starting point of the program
@@ -154,7 +180,7 @@ def book_recommendation():
         mydb = mysql_connection()
 
         book_list = ['The Testament', 'Harry Potter and the Goblet of Fire (Book 4)', '1984']
-        #BELOW execute SQL query
+        # BELOW execute SQL query
 
         # loading the title from database
         df_title_only = get_full_list_book_title_data_with_explicit_rating(mydb)
@@ -165,37 +191,14 @@ def book_recommendation():
 
         # multiselect bar
         book_input = st.multiselect(
-            "Choose a Book", list(df_title_only['Book-Title']), book_list
+            "Choose a Book", list(df_title_only['Book-Title']), options=book_list,
+            on_change=website_data_loading_code(book_list)
         )
 
         if not book_input:
             st.error("Please select at least one Book.")
         else:
-            st.write("")
-            st.write("Section Showing prediction ")
-            for book in book_list:
-                st.write("The Name of Book: "+book)
-                st.write(item_based(df_books, explicit_df_matrix, similarity_scores, book))
-
-            st.write("")
             st.write("Section Showing the data the user selected")
-
-
-
-            st.write("DEBUG")
-            st.write("Selected Book: ", book_input)
-            df_target = get_book_data_by_title(mydb, book_input)
-            st.write(df_target)
-
-            # below the code for plt print the information
-            # data = df[['ISBN', 'Book-Title', 'Book-Author']]
-            # fig, ax = plt.subplots(figsize=(8, 8))
-            # fig.patch.set_visible(False)
-            # ax.axis('off')
-            # ax.axis('tight')
-            # ax.table(cellText=data.values, colLabels=data.columns, loc='center')
-            # fig.tight_layout()
-            # st.pyplot(plt.gcf())  # instead of plt.show()
 
 
     except URLError as e:
