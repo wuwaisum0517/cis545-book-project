@@ -19,7 +19,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
-import mysqlclient.connector
+import mysql.connector
 from sklearn.metrics.pairwise import cosine_similarity
 
 def book_recommendation():
@@ -40,7 +40,7 @@ def book_recommendation():
         Database connection
         secret variable saved in steamlit
         """
-        mydb = mysqlclient.connector.connect(
+        mydb = mysql.connector.connect(
             host=st.secrets["db_host"],
             user=st.secrets["db_user"],
             password=st.secrets["db_password"]
