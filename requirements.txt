@@ -5,6 +5,8 @@ pydeck
 streamlit
 matplotlib
 seaborn
-mysql
+streamlit
+mysqlclient
+SQLAlchemy
 joblib
 scikit-learn
