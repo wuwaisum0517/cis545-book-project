@@ -23,17 +23,17 @@ import mysql.connector
 from sklearn.metrics.pairwise import cosine_similarity
 
 def book_recommendation():
-    def mysql_connection():
-
-        """
-        Database connection
-        """
-        mydb = mysql.connector.connect(
-            host="cis5450project.cteq6emi8zj5.us-east-1.rds.amazonaws.com",
-            user="admin",
-            password="cis5450password"
-        )
-        return mydb
+    # def mysql_connection():
+    #
+    #     """
+    #     Database connection
+    #     """
+    #     mydb = mysql.connector.connect(
+    #         host="cis5450project.cteq6emi8zj5.us-east-1.rds.amazonaws.com",
+    #         user="admin",
+    #         password="cis5450password"
+    #     )
+    #     return mydb
     def mysql_connection_secret():
 
         """
@@ -42,7 +42,7 @@ def book_recommendation():
         """
         mydb = mysql.connector.connect(
             host=st.secrets["db_host"],
-            user=st.secrets["db_password"],
+            user=st.secrets["db_user"],
             password=st.secrets["db_password"]
         )
         st.write('mysql_connection loading completed'+str(dt.datetime.now()))
@@ -223,7 +223,7 @@ def book_recommendation():
         debug_mode = False
 
         # connector to SQL server
-        mydb = mysql_connection()
+        mydb = mysql_connection_secret()
 
         default_book_list = ['The Testament', 'Harry Potter and the Goblet of Fire (Book 4)', '1984']
         # BELOW execute SQL query
