@@ -38,6 +38,18 @@ def book_recommendation():
             password="cis5450password"
         )
         return mydb
+    def mysql_connection_secret():
+
+        """
+        Database connection
+        secret variable saved in steamlit
+        """
+        mydb = mysql.connector.connect(
+            host=st.secrets["db_host"],
+            user=st.secrets["db_password"],
+            password=st.secrets["db_password"]
+        )
+        return mydb
 
     def execute_clean_data_sql_query(mydb, query, column_names):
         """
