@@ -47,7 +47,7 @@ def run():
         This is our CIS 545 Final Project.
         Our intention is to develop a robust methodology for predicting which books a user will like given their previous 
         ratings. The general strategy will be to compute the predicted rating of all the other books in the data set based 
-        on the user’s information, then output those with the highest predicted ratings.
+        on the user's information, then output those with the highest predicted ratings.
         
         ### Technology used:
         AWS

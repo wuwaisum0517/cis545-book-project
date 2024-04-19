@@ -20,18 +20,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
 from collections import Counter
+
 def rating_count_by_title(df_title_rating):
-    plt.figure()
+    plt.figure(figsize = (10,10))
     plt.subplot(2, 1, 1)
     plt.axis('equal')
     plt.pie(df_title_rating['Count'][:15], labels=df_title_rating['Book-Title'][:15], autopct='%.1f%%', pctdistance=0.8)
     plt.title('Count (Title)')
     st.pyplot(plt.gcf())  # instead of plt.show()
+
+
 def avg_rating_by_title(df_title_rating):
     """
     2.5.2 Average rating by Book Title
     """
-    plt.figure()
+    plt.figure(figsize = (10,10))
     df_title_rating_avg = df_title_rating[:30].sort_values(by='Average', ascending=False)
     plt.subplot(2, 1, 2)
     plt.axis('equal')
@@ -82,6 +85,8 @@ def rating_count_by_author(df_author_rating):
             pctdistance=0.8)
     plt.title('Count (Author)')
     st.pyplot(plt.gcf())  # instead of plt.show()
+
+    
 def avg_rating_by_author(df_author_rating):
     """
     2.5.1 Pie Chart - Author Average Rating
@@ -242,16 +247,16 @@ def book_publication_distribution(df_pub_decade):
 
 def book_review_count_in_top_15_state(df_state):
     """
-    2nd Graph
+    2.2
     """
-
+    plt.figure()
     # One maximum is crimson color and the rest are steelblue color
     count_state = df_state['Count'][:15]
     cols = ['steelblue' if (x < max(count_state)) else 'crimson' for x in count_state]
 
     # State plot
-    plt.figure()
-    sns.set(rc={'figure.figsize': (12, 6)})
+
+
     plot_state = sns.barplot(data=df_state[:15], x='State', y='Count', palette=cols)
     plot_state.set_title('Book Sales in Top 15 States')
     plot_state.set_xticklabels(plot_state.get_xticklabels(), rotation=30)
@@ -259,12 +264,16 @@ def book_review_count_in_top_15_state(df_state):
     plot_state.set_ylabel('Count')
     for i, v in enumerate(count_state):
         plot_state.text(i, v, str(v), ha='center')
+    sns.set_theme(rc={'figure.figsize': (17, 6)})
     st.pyplot(plt.gcf())  # instead of plt.show()
     return
 
 
 # Graph 1 : Book Sales in Top 15 States:
 def book_sales_top_15_cities(df_city):
+    """
+    2.1 Graph
+    """
     # Two maximums are crimson color and the rest are steelblue color
 
     plt.figure()
@@ -347,6 +356,7 @@ def website_visualization_start():
         ###################################
         sub_header = """
         2.1 Which State left the most reviews?
+        The Top 15 states with the highest number of reviews
         """
         st.subheader(sub_header)
 
@@ -360,11 +370,12 @@ def website_visualization_start():
         ###################################
         sub_header = """
         2.2 Which cities left the most reviews?
+        The Top 15 states with the highest number of reviews
         """
         st.subheader(sub_header)
 
         writing = """
-
+        We count the total number of reviews and we found a lot of reviews were from St.Louis.
         """
         st.write(writing)
         df_city = loading_csv_file("df_city.csv")  # load the data
@@ -507,8 +518,11 @@ Meanwhile,
         st.write(writing)
         df_title_rating = loading_csv_file("df_title_rating.csv")
         df_title = loading_csv_file("df_title.csv")
-        rating_count_by_title(df_title_rating)
-        avg_rating_by_title(df_title_rating)
+        col1, col2 = st.columns(2)
+        with col1:
+            rating_count_by_title(df_title_rating)
+        with col2:
+            avg_rating_by_title(df_title_rating)
         two_subplot_graph_by_title(df_title_rating,df_title)
 
 
@@ -542,5 +556,6 @@ st.set_page_config(page_title="Data Visualization", page_icon="📊")
 
 st.sidebar.header("Dataset Graph")
 st.title("Exploratory Data Analysis")
-st.write("This is the section we show the data from our dataset.")
+st.subheader("This is the section we show the data from our dataset.")
+st.subheader("Click on the graph and check out the detail!")
 website_visualization_start()

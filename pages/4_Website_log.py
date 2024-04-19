@@ -1,8 +1,10 @@
 import streamlit as st
 
-st.write("From Colab to CSV File")
+st.title("Process to create this website")
 
-st.write("From CSV to AWS")
+st.write("""We """)
+
+st.write("From CSV to AWS S3")
 
 st.write("SQL query handling")
 
