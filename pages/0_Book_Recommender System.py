@@ -54,19 +54,20 @@ def book_recommendation():
         """
         mydb = st.connection('mysql', type='sql')
         return mydb
+    
     def execute_clean_data_sql_query(mydb, query, column_names,debug_mode):
         """
         implemented based on official document
         """
         if debug_mode:
             st.write(query+' started at'+str(dt.datetime.now()))
-        df = mydb.query(query, ttl=600)
+        result_df = mydb.query(query, ttl=600)
         if debug_mode:
             st.write(query+'loading completed at '+str(dt.datetime.now()))
-        df = df.columns(column_names)
+        result_df = result_df.set_axis(column_names,axis = 'columns')
         if debug_mode:
             st.write(query+'column name converted '+str(dt.datetime.now()))
-        return df
+        return result_df
 
 
 
