@@ -1,0 +1,101 @@
+,User-ID,Age,Location,City,State,Country,ISBN,Book-Rating,Book-Title,Book-Author,Year-Of-Publication,Publisher,Image-URL,User-Decade,Decade-Of-Publication
+0,2,18.0,"stockton, california, usa",stockton,california,usa,0195153448,0,Classical Mythology,Mark P. O. Morford,2002,Oxford University Press,http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg,10,2000
+3,388,35.0,"nashville, tennessee, usa",nashville,tennessee,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+4,2977,25.0,"richland, washington, usa",richland,washington,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+6,3363,29.0,"knoxville, tennessee, usa",knoxville,tennessee,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+7,6795,31.0,"portland, oregon, usa",portland,oregon,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+8,7346,49.0,"sunnyvale, california, usa",sunnyvale,california,usa,0440234743,9,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+9,7352,53.0,"houston, texas, usa",houston,texas,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+12,9856,22.0,"glendale, colorado, usa",glendale,colorado,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+13,11224,51.0,"tumwater, washington, usa",tumwater,washington,usa,0440234743,6,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+15,12923,39.0,"louisville, kentucky, usa",louisville,kentucky,usa,0440234743,10,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+16,13552,32.0,"cordova, tennessee, usa",cordova,tennessee,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+19,16795,47.0,"mechanicsville, maryland, usa",mechanicsville,maryland,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+22,20435,62.0,"fairhope, alabama, usa",fairhope,alabama,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,60,1990
+26,21264,31.0,"north brunswick, new jersey, usa",north brunswick,new jersey,usa,0440234743,5,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+27,23511,56.0,"chapel hill, north carolina, usa",chapel hill,north carolina,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+28,23768,45.0,"st. louis, missouri, usa",st. louis,missouri,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+30,26544,37.0,"woodbridge, virginia, usa",woodbridge,virginia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+35,30487,40.0,"newbury park, california, usa",newbury park,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+37,31299,74.0,"homer city, pennsylvania, usa",homer city,pennsylvania,usa,0440234743,10,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,70,1990
+38,31315,34.0,"henryville, indiana, usa",henryville,indiana,usa,0440234743,10,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+39,31556,51.0,"chula vista, california, usa",chula vista,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+42,32516,44.0,"st. rose, louisiana, usa",st. rose,louisiana,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+43,35857,36.0,"mentor, ohio, usa",mentor,ohio,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+45,36606,39.0,"san marcos, california, usa",san marcos,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+46,37874,43.0,"williamsburg, virginia, usa",williamsburg,virginia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+47,38991,68.0,"cumby, texas, usa",cumby,texas,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,60,1990
+48,39345,47.0,"jacksonville, florida, usa",jacksonville,florida,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+49,39646,35.0,"fairless hills, pennsylvania, usa",fairless hills,pennsylvania,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+50,40889,37.0,"brainerd, minnesota, usa",brainerd,minnesota,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+51,41781,54.0,"clinton twp., michigan, usa",clinton twp.,michigan,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+53,46389,55.0,"pine knoll shores, north carolina, usa",pine knoll shores,north carolina,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+54,46398,37.0,"san antonio, texas, usa",san antonio,texas,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+55,48911,57.0,"new orleans, louisiana, usa",new orleans,louisiana,usa,0440234743,10,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+56,49168,57.0,"ivydale, west virginia, usa",ivydale,west virginia,usa,0440234743,9,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+57,49994,40.0,"clintonville, wisconsin, usa",clintonville,wisconsin,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+58,52584,45.0,"livermore, california, usa",livermore,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+60,54005,59.0,"lacey, washington, usa",lacey,washington,usa,0440234743,9,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+61,54884,33.0,"nashua, new hampshire, usa",nashua,new hampshire,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+62,55027,44.0,"burlington, north carolina, usa",burlington,north carolina,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+64,55492,43.0,"antioch, illinois, usa",antioch,illinois,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+65,57108,38.0,"new york, new york, usa",new york,new york,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+67,59038,28.0,"san antonio, texas, usa",san antonio,texas,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+69,60130,41.0,"lowell, arkansas, usa",lowell,arkansas,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+70,60569,41.0,"chardon, ohio, usa",chardon,ohio,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+71,60683,47.0,"hartford, wisconsin, usa",hartford,wisconsin,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+72,62667,53.0,"warsaw, virginia, usa",warsaw,virginia,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+73,62881,39.0,"milwaukee, wisconsin, usa",milwaukee,wisconsin,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+74,63470,56.0,"reno, nevada, usa",reno,nevada,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+75,64535,43.0,"fredericksburg, virginia, usa",fredericksburg,virginia,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+78,66387,52.0,"kokomo, indiana, usa",kokomo,indiana,usa,0440234743,6,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+79,67487,33.0,"melbourne, florida, usa",melbourne,florida,usa,0440234743,6,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+80,68256,28.0,"chickasha, oklahoma, usa",chickasha,oklahoma,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+81,68537,70.0,"friendswood, texas, usa",friendswood,texas,usa,0440234743,10,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,70,1990
+82,69232,55.0,"mooresville, north carolina, usa",mooresville,north carolina,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+84,70666,18.0,"warwick, rhode island, usa",warwick,rhode island,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,10,1990
+87,72975,21.0,"minneapolis, minnesota, usa",minneapolis,minnesota,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+88,74709,21.0,"macomb, michigan, usa",macomb,michigan,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+89,75691,17.0,"cincinnati, ohio, usa",cincinnati,ohio,usa,0440234743,9,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,10,1990
+91,76352,58.0,"olympia, washington, usa",olympia,washington,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+92,76942,25.0,"sacramento, california, usa",sacramento,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+94,78834,28.0,"honolulu, hawaii, usa",honolulu,hawaii,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+95,79186,37.0,"fairbanks, alaska, usa",fairbanks,alaska,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+96,79740,24.0,"st. louis, missouri, usa",st. louis,missouri,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+97,80810,33.0,"warrensburg, missouri, usa",warrensburg,missouri,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+98,81298,20.0,"savannah, georgia, usa",savannah,georgia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+100,82893,40.0,"san antonio, texas, usa",san antonio,texas,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+102,84024,37.0,"abilene, texas, usa",abilene,texas,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+104,85534,49.0,"cleveland, ohio, usa",cleveland,ohio,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+105,86303,31.0,"denver, colorado, usa",denver,colorado,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+106,86969,59.0,"forest grove, oregon, usa",forest grove,oregon,usa,0440234743,8,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+108,87929,25.0,"portland, maine, usa",portland,maine,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+109,88006,27.0,"fresno, california, usa",fresno,california,usa,0440234743,4,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+111,91633,21.0,"french camp, california, usa",french camp,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+114,93363,30.0,"farmington hills, michigan, usa",farmington hills,michigan,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+117,93800,52.0,"mount vernon, washington, usa",mount vernon,washington,usa,0440234743,6,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+119,94396,62.0,"shoreline, washington, usa",shoreline,washington,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,60,1990
+120,97721,46.0,"castro valley, california, usa",castro valley,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+121,98012,48.0,"friday harbor, washington, usa",friday harbor,washington,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+122,98468,33.0,"eugene, oregon, usa",eugene,oregon,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+123,98723,29.0,"cincinnati, ohio, usa",cincinnati,ohio,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+126,101209,44.0,"ft huachuca, arizona, usa",ft huachuca,arizona,usa,0440234743,7,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+127,102647,14.0,"modesto, california, usa",modesto,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,10,1990
+128,102967,54.0,"olympia, washington, usa",olympia,washington,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+129,103315,32.0,"norton, ohio, usa",norton,ohio,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+130,103416,33.0,"tucson, arizona, usa",tucson,arizona,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+131,105624,35.0,"royersford, pennsylvania, usa",royersford,pennsylvania,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+132,105937,27.0,"tampa, florida, usa",tampa,florida,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+133,105979,26.0,"oakland, california, usa",oakland,california,usa,0440234743,5,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+135,106273,28.0,"paducah, kentucky, usa",paducah,kentucky,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+136,107201,38.0,"troy, michigan, usa",troy,michigan,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+137,107244,50.0,"appleton, wisconsin, usa",appleton,wisconsin,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+139,108143,17.0,"cincinnati, ohio, usa",cincinnati,ohio,usa,0440234743,9,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,10,1990
+143,110440,29.0,"fairfax, virginia, usa",fairfax,virginia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
+145,110973,43.0,"wiley ford, west virginia, usa",wiley ford,west virginia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+146,112001,43.0,"barren springs, virginia, usa",barren springs,virginia,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+147,112093,35.0,"spencer, indiana, usa",spencer,indiana,usa,0440234743,4,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+148,112280,50.0,"saint  charles, missouri, usa",saint charles,missouri,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,50,1990
+150,114544,35.0,"antelope, california, usa",antelope,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,30,1990
+151,115003,43.0,"asheville, north carolina, usa",asheville,north carolina,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,40,1990
+152,115120,29.0,"sherman oaks, california, usa",sherman oaks,california,usa,0440234743,0,The Testament,John Grisham,1999,Dell,http://images.amazon.com/images/P/0440234743.01.THUMBZZZ.jpg,20,1990
