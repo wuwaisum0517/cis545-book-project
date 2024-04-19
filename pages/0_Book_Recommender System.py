@@ -19,7 +19,6 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib import cm
-import mysql.connector
 from sklearn.metrics.pairwise import cosine_similarity
 
 def book_recommendation():
@@ -34,45 +33,69 @@ def book_recommendation():
     #         password="cis5450password"
     #     )
     #     return mydb
-    def mysql_connection_secret():
+    # def mysql_connection_secret():
 
+    #     """
+    #     Database connection, using mysql package
+    #     unusable in streamlit for some reason
+    #     secret variable saved in steamlit
+    #     """
+    #     mydb = mysql.connector.connect(
+    #         host=st.secrets["db_host"],
+    #         user=st.secrets["db_user"],
+    #         password=st.secrets["db_password"]
+    #     )
+    #     st.write('mysql_connection loading completed'+str(dt.datetime.now()))
+    #     return mydb
+
+    def mysql_connection_secret():
         """
         Database connection
-        secret variable saved in steamlit
         """
-        mydb = mysql.connector.connect(
-            host=st.secrets["db_host"],
-            user=st.secrets["db_user"],
-            password=st.secrets["db_password"]
-        )
-        st.write('mysql_connection loading completed'+str(dt.datetime.now()))
+        mydb = st.connection('mysql', type='sql')
         return mydb
-
     def execute_clean_data_sql_query(mydb, query, column_names,debug_mode):
         """
-        The database name IS clean_data
-        with mysql_connection information create cursor and return result
-
+        implemented based on official document
         """
-        mycursor = mydb.cursor()
-
-        mycursor.execute("USE clean_data;")
-
         if debug_mode:
-            st.write(query+' started at '+str(dt.datetime.now()))
-
-        mycursor.execute(query)
-
-        if debug_mode:
-            st.write(query+' finished at '+str(dt.datetime.now()))
-        sql_result = mycursor.fetchall()
-        if debug_mode:
-            st.write(query+' started converting DataFrame at '+str(dt.datetime.now()))
-        dataframe_result = pd.DataFrame(sql_result, columns=column_names)
-        mycursor.close()
+            st.write(query+' started at'+str(dt.datetime.now()))
+        df = mydb.query(query, ttl=600)
         if debug_mode:
             st.write(query+'loading completed at '+str(dt.datetime.now()))
-        return dataframe_result
+        df = df.columns(column_names)
+        if debug_mode:
+            st.write(query+'column name converted '+str(dt.datetime.now()))
+        return df
+
+
+
+    # def execute_clean_data_sql_query(mydb, query, column_names,debug_mode):
+    #     """
+    #     The mysql package execute
+    #     The database name IS clean_data
+    #     with mysql_connection information create cursor and return result
+    #     unusable for query in streamlit Cloud for some unknown reason
+    #     """
+    #     mycursor = mydb.cursor()
+
+    #     mycursor.execute("USE clean_data;")
+
+    #     if debug_mode:
+    #         st.write(query+' started at '+str(dt.datetime.now()))
+
+    #     mycursor.execute(query)
+
+    #     if debug_mode:
+    #         st.write(query+' finished at '+str(dt.datetime.now()))
+    #     sql_result = mycursor.fetchall()
+    #     if debug_mode:
+    #         st.write(query+' started converting DataFrame at '+str(dt.datetime.now()))
+    #     dataframe_result = pd.DataFrame(sql_result, columns=column_names)
+    #     mycursor.close()
+    #     if debug_mode:
+    #         st.write(query+'loading completed at '+str(dt.datetime.now()))
+    #     return dataframe_result
 
     def get_full_list_book(mydb,debug_mode):
         """

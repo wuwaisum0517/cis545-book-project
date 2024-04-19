@@ -6,7 +6,7 @@ streamlit
 matplotlib
 seaborn
 streamlit
-SQLAlchemy
 joblib
 scikit-learn
-mysql
+mysqlclient
+SQLAlchemy
