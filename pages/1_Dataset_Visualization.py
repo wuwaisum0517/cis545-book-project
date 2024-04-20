@@ -548,8 +548,7 @@ def loading_csv_file(filename):
     # Construct the absolute file path
     csv_path = os.path.join(current_dir,str(filename))
 
-    df_books = pd.read_csv(csv_path, encoding="utf-8")
-    return df_books
+    return pd.read_csv(csv_path, encoding="utf-8")
 
 
 st.set_page_config(page_title="Data Visualization", page_icon="📊")

@@ -22,31 +22,6 @@ from matplotlib import cm
 from sklearn.metrics.pairwise import cosine_similarity
 
 def book_recommendation():
-    # def mysql_connection():
-    #
-    #     """
-    #     Database connection
-    #     """
-    #     mydb = mysql.connector.connect(
-    #         host="cis5450project.cteq6emi8zj5.us-east-1.rds.amazonaws.com",
-    #         user="admin",
-    #         password="cis5450password"
-    #     )
-    #     return mydb
-    # def mysql_connection_secret():
-
-    #     """
-    #     Database connection, using mysql package
-    #     unusable in streamlit for some reason
-    #     secret variable saved in steamlit
-    #     """
-    #     mydb = mysql.connector.connect(
-    #         host=st.secrets["db_host"],
-    #         user=st.secrets["db_user"],
-    #         password=st.secrets["db_password"]
-    #     )
-    #     st.write('mysql_connection loading completed'+str(dt.datetime.now()))
-    #     return mydb
 
     def mysql_connection_secret():
         """
@@ -57,7 +32,7 @@ def book_recommendation():
     
     def execute_clean_data_sql_query(mydb, query, column_names,debug_mode):
         """
-        implemented based on official document
+        SQL database query implementation based on official document
         """
         if debug_mode:
             st.write(query+' started at'+str(dt.datetime.now()))
@@ -71,43 +46,6 @@ def book_recommendation():
 
 
 
-    # def execute_clean_data_sql_query(mydb, query, column_names,debug_mode):
-    #     """
-    #     The mysql package execute
-    #     The database name IS clean_data
-    #     with mysql_connection information create cursor and return result
-    #     unusable for query in streamlit Cloud for some unknown reason
-    #     """
-    #     mycursor = mydb.cursor()
-
-    #     mycursor.execute("USE clean_data;")
-
-    #     if debug_mode:
-    #         st.write(query+' started at '+str(dt.datetime.now()))
-
-    #     mycursor.execute(query)
-
-    #     if debug_mode:
-    #         st.write(query+' finished at '+str(dt.datetime.now()))
-    #     sql_result = mycursor.fetchall()
-    #     if debug_mode:
-    #         st.write(query+' started converting DataFrame at '+str(dt.datetime.now()))
-    #     dataframe_result = pd.DataFrame(sql_result, columns=column_names)
-    #     mycursor.close()
-    #     if debug_mode:
-    #         st.write(query+'loading completed at '+str(dt.datetime.now()))
-    #     return dataframe_result
-
-    def get_full_list_book(mydb,debug_mode):
-        """
-        return df_books
-        """
-        query = "SELECT * FROM books_table"
-
-        column_names = ['ID', 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL-S',
-                        'Image-URL-M', 'Image-URL-L']
-
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
     def get_book_data_by_title_for_df_books(mydb, book,debug_mode):
         """
         input: mydb and book
@@ -118,53 +56,6 @@ def book_recommendation():
 
         column_names = ['ID', 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL-S',
                         'Image-URL-M', 'Image-URL-L']
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
-    def get_full_list_book_title_data(mydb,debug_mode):
-        query = "SELECT DISTINCT Book_Title FROM all_rating"
-
-        column_names = ['Book-Title']
-
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
-
-    def get_full_list_book_title_data_with_explicit_rating(mydb,debug_mode):
-        query = "SELECT DISTINCT Book_Title FROM all_rating WHERE Book_Rating !=0;"
-
-        column_names = ['Book-Title']
-
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
-
-    def get_book_data_by_title(mydb, book_list,debug_mode):
-        """
-        Input: cursor from get_data_mysql_connection
-        Output: head(10) SQL Data DataFrame
-        """
-        list_of_books = "\", \"".join(book_list)
-
-        query = "SELECT * FROM clean_table WHERE Book_Title IN (\"{}\")".format(list_of_books)
-
-        column_names = ['ID', 'User-ID', 'Age', 'Location', 'City', 'State', 'Country', 'ISBN', 'Book-Rating',
-                        'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher', 'Image-URL', 'User-Decade',
-                        'Decade-Of-Publication']
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
-
-    def get_explicit_df(mydb,debug_mode):
-        """
-        UNUSED FUNCTION, for filtering rows
-        explicit_df = all_ratings[all_ratings['Book-Rating'] != 0]
-        """
-        query = "SELECT * FROM all_rating WHERE Book_Rating IS NOT 0"
-        column_names = ['User-ID', 'ISBN', 'Book-Title', 'Book-Author', 'Book-Rating']
-
-        return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
-
-    def get_implicit_df(mydb,debug_mode):
-        """
-        UNUSED FUNCTION, for filtering rows
-        implicit_df = all_ratings[all_ratings['Book-Rating'] == 0]
-        """
-        query = "SELECT * FROM all_rating WHERE Book_Rating IS 0"
-        column_names = ['User-ID', 'ISBN', 'Book-Title', 'Book-Author', 'Book-Rating']
-
         return execute_clean_data_sql_query(mydb, query, column_names,debug_mode)
 
     def get_explict_df_matrix(debug_mode):
@@ -232,16 +123,6 @@ def book_recommendation():
             st.write('item_based searched a book '+ book_name +'at'+str(dt.datetime.now()))
         return data
 
-
-        # below the code for plt print the information
-        # data = df[['ISBN', 'Book-Title', 'Book-Author']]
-        # fig, ax = plt.subplots(figsize=(8, 8))
-        # fig.patch.set_visible(False)
-        # ax.axis('off')
-        # ax.axis('tight')
-        # ax.table(cellText=data.values, colLabels=data.columns, loc='center')
-        # fig.tight_layout()
-        # st.pyplot(plt.gcf())  # instead of plt.show()
 
     try:
         debug_mode = False
