@@ -152,9 +152,7 @@ def book_recommendation_based_on_parameter():
         return top_books.reset_index()
     def showing_result(top_books,debug_mode):
         if debug_mode:
-            st.write("Input:")
             st.write(top_books)
-
         for index, row in top_books.iterrows():
             st.subheader(row['Title'])
             col0,col1,col2 = st.columns([1,4,2])
@@ -174,7 +172,7 @@ def book_recommendation_based_on_parameter():
 
 
     try:
-        debug_mode = False
+        debug_mode = True
 
         # connector to SQL server
         mydb = mysql_connection_secret()
