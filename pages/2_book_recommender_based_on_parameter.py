@@ -50,6 +50,14 @@ def book_recommendation_based_on_parameter():
 
         return load
 
+    def loading_state(mydb, debug_mode):
+        query = 'SELECT Distinct State FROM user_df_from_cluster_df ORDER BY State'
+        column_names = ['State']
+        if debug_mode:
+            st.write("start execute sql query")
+        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        return load
+
     def loading_csv_file(filename):
         """
         Input file name, Output dataframe output
@@ -217,6 +225,7 @@ def book_recommendation_based_on_parameter():
         sorted_df = filtered_df.sort_values(by='Book-Rating', ascending=False)
 
         # Get the top 5 highest-rated books
+        # need fix
         top_books = sorted_df.head(5)
         if debug_mode:
             st.write("16: final result")
@@ -237,16 +246,22 @@ def book_recommendation_based_on_parameter():
         st.write('Our system will recommend some book for you to check out!')
 
         # User age?
-        requested_age = [28]
+        # 0-100
+        age_input = st.number_input("What is your age? (0-100)",min_value=0,max_value=100)
+        requested_age = [age_input]
+        options = loading_state(mydb,debug_mode)['State']
         # User state
-        requested_state = ['colorado']  # Example location
+        state_input = st.multiselect("Which state you comes from?",options)
+        requested_state = [state_input]  # Example location
         # User rating
-        requested_rating = [5]
+        rating_input = st.number_input("Book Rating - from 0-10",min_value=0,max_value=10)
+        requested_rating = [rating_input]
         # User requested pages
-        requested_pages=[300]
+        number_of_pages_input = st.number_input("Book Rating - from 0-3800",min_value=0,max_value=3800)       
+        requested_pages=[number_of_pages_input]
         # User requested publication year
-        requested_year_Of_Publication=[2000]
-
+        year_publication_input = st.number_input("Book Rating - from 0-3800",min_value=1950,max_value=2005)
+        requested_year_Of_Publication=[year_publication_input]
         new_user_data = {
             'Age': requested_age,  # Example age
             'State': requested_state,  # Example location
@@ -254,6 +269,10 @@ def book_recommendation_based_on_parameter():
             'pages': requested_pages,
             'Year-Of-Publication': requested_year_Of_Publication
         }
+        if debug_mode:
+            st.write(new_user_data)
+
+        st.button("Surprise me !")
         users_df = loading_user_df(mydb,debug_mode)
         pipeline_process(users_df, new_user_data,debug_mode)
 
