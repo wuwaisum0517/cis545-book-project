@@ -41,7 +41,7 @@ def book_recommendation():
             st.write(query+'loading completed at '+str(dt.datetime.now()))
         result_df = result_df.set_axis(column_names,axis = 'columns')
         if debug_mode:
-            st.write(query+'column name converted '+str(dt.datetime.now()))
+            st.write('column name converted '+str(dt.datetime.now()))
         return result_df
 
 
@@ -88,16 +88,15 @@ def book_recommendation():
             title, author, image_url, similarity_score = recommendation[0], recommendation[1], recommendation[2], recommendation[3]
 
             col1, col2 ,col3= st.columns([1,4,2])
+            st.subheader(title)
             with col1:
                 try:
                     st.image(image_url)
                 except st.runtime.media_file_storage.MediaFileStorageError:
                     continue
             with col2:
-                st.subheader(title)
                 st.subheader("Author: "+author)
             with col3:
-
                 st.write("The similarity Score :" +str("{:.2f}".format(similarity_score)))
         return
     def item_based(mydb, explicit_df_matrix, similarity_scores, book_name,debug_mode):
@@ -143,9 +142,9 @@ def book_recommendation():
         # df_books = get_full_list_book(mydb)
 
         # multiselect bar
-
+        st.subheader("This system give the book recommendations based on what you already like. ")
         book_input = st.multiselect(
-            "Choose at most 6 book to see our recommendation! ", list(df_title_only), default_book_list
+            "Choose at most 6 books to see our recommendation! ", list(df_title_only), default_book_list
         )
 
         if not book_input or len(book_input) == 0:
