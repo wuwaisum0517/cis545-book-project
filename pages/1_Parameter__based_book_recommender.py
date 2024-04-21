@@ -172,12 +172,10 @@ def book_recommendation_based_on_parameter():
 
 
     try:
-        debug_mode = True
+        debug_mode = False
 
         # connector to SQL server
         mydb = mysql_connection_secret()
-
-
 
         # User age?
         # 0-100
