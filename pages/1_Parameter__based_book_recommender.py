@@ -74,7 +74,7 @@ def book_recommendation_based_on_parameter():
             st.write("start execute sql query "+query)
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
         return load
-    def load_book_given_book_title(mydb, book_title):
+    def load_book_given_book_title(mydb, book_title,debug_mode):
         query = 'SELECT * FROM cluster_database where Title =' + book_title
         column_names = ['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
         if debug_mode:
@@ -194,7 +194,8 @@ def book_recommendation_based_on_parameter():
 
         book_title_list = load_book_title(mydb)
         book_input = st.selectbox("Select a book",book_title_list['Title'])
-        load_book_infromation = load_book_given_book_title(book_input,debug_mode)
+        load_book_infromation = load_book_given_book_title(mydb,book_input,debug_mode)
+        st.write(load_book_infromation)
         book_rating_list = []
         page_list= []
         year_of_publication = []
