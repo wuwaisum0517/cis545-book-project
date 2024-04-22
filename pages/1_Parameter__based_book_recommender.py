@@ -75,8 +75,9 @@ def book_recommendation_based_on_parameter():
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
         return load
     def load_book_given_book_title(mydb, book_title,debug_mode):
-        query = 'SELECT * FROM books_table where Title =\'' + book_title + "\'"
-        column_names = ['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
+        query = "SELECT * FROM user_df_from_cluster_df WHERE Title = \"{}\"".format(book_title)
+
+        column_names =['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
         if debug_mode:
             st.write("start execute sql query "+query)
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
@@ -191,16 +192,14 @@ def book_recommendation_based_on_parameter():
 
         # connector to SQL server
         mydb = mysql_connection_secret()
-
+        #choice of book
         book_title_list = load_book_title(mydb)
         book_input = st.selectbox("Select a book",book_title_list['Title'])
         load_book_infromation = load_book_given_book_title(mydb,book_input,debug_mode)
-        st.write(load_book_infromation)
-        book_rating_list = []
-        page_list= []
-        year_of_publication = []
 
-
+        requested_rating = load_book_infromation['Book-Rating'][0]
+        requested_pages=load_book_infromation['pages'][0]
+        requested_year_of_publication=load_book_infromation['Year-of-Publication'][0]
         # User age?
         # 0-100
         age_input = st.number_input("What is your age? (0-100)",min_value=0,max_value=100,value = 28)
@@ -209,15 +208,18 @@ def book_recommendation_based_on_parameter():
         # User state
         state_input = st.selectbox("Which state you comes from?",options,index = 5)
         requested_state = [state_input]  # Example location
+
+
+
         # User rating
-        rating_input = st.number_input("Book Rating(0-10)",min_value=0,max_value=10,value = 5)
-        requested_rating = [rating_input]
+        # rating_input = st.number_input("Book Rating(0-10)",min_value=0,max_value=10,value = 5)
+        # requested_rating = [rating_input]
         # User requested pages
-        number_of_pages_input = st.number_input("Number of pages? - (0-3800)",min_value=0,max_value=3800,value = 300)
-        requested_pages=[number_of_pages_input]
+        # number_of_pages_input = st.number_input("Number of pages? - (0-3800)",min_value=0,max_value=3800,value = 300)
+        # requested_pages=[number_of_pages_input]
         # User requested publication year
-        year_publication_input = st.number_input("Year of Publication (1950-2005)",min_value=1950,max_value=2005,value = 2000)
-        requested_year_of_publication=[year_publication_input]
+        # year_publication_input = st.number_input("Year of Publication (1950-2005)",min_value=1950,max_value=2005,value = 2000)
+        # requested_year_of_publication=[year_publication_input]
         st.write("The book recommendation:")
         new_user_data = {
             'Age': requested_age,  # Example age
