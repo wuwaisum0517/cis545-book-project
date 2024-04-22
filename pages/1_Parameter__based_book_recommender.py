@@ -84,7 +84,8 @@ def book_recommendation_based_on_parameter():
         return load
 
     def try_books_picture(mydb, ISBN,debug_mode):
-        query = 'SELECT Image_URL_M FROM books_table WHERE ISBN = '+ str(ISBN)
+        query = "SELECT Image_URL_M FROM books_table WHERE ISBN = \'"+ str(ISBN) +"\'"
+
         column_names = ['Image_URL_M']
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
         if len(load['Image_URL_M']) == 0:
