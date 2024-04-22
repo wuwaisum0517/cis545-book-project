@@ -75,7 +75,7 @@ def book_recommendation_based_on_parameter():
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
         return load
     def load_book_given_book_title(mydb, book_title,debug_mode):
-        query = 'SELECT * FROM cluster_database where Title =' + book_title
+        query = 'SELECT * FROM cluster_database where Title =\'' + book_title + "\'"
         column_names = ['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
         if debug_mode:
             st.write("start execute sql query "+query)
