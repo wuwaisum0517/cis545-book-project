@@ -67,6 +67,21 @@ def book_recommendation_based_on_parameter():
             st.write("start execute sql query "+query)
         load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
         return load
+    def load_book_title (mydb):
+        query = 'SELECT DISTINCT Title FROM cluster_database'
+        column_names = ['Title']
+        if debug_mode:
+            st.write("start execute sql query "+query)
+        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        return load
+    def load_book_given_book_title(mydb, book_title):
+        query = 'SELECT * FROM cluster_database where Title =' + book_title
+        column_names = ['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
+        if debug_mode:
+            st.write("start execute sql query "+query)
+        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        return load
+
     def try_books_picture(mydb, ISBN,debug_mode):
         query = 'SELECT Image_URL_M FROM books_table WHERE ISBN = '+ str(ISBN)
         column_names = ['Image_URL_M']
@@ -176,6 +191,14 @@ def book_recommendation_based_on_parameter():
 
         # connector to SQL server
         mydb = mysql_connection_secret()
+
+        book_title_list = load_book_title(mydb)
+        book_input = st.selectbox("Select a book",book_title_list['Title'])
+        load_book_infromation = load_book_given_book_title(book_input,debug_mode)
+        book_rating_list = []
+        page_list= []
+        year_of_publication = []
+
 
         # User age?
         # 0-100
