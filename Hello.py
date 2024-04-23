@@ -26,7 +26,7 @@ def run():
 
     st.write("# Welcome to Our CIS 545 Group Project website! 👋")
 
-    st.sidebar.success("Select a demo above.")
+    st.sidebar.success("Select our book recommender system above.")
 
     st.markdown(
         """
@@ -50,27 +50,30 @@ def run():
         on the user's information, then output those with the highest predicted ratings.
         
         ### Technology used:
-        AWS
+        AWS (MySQL Server)
         
-        Streamlit
+        Streamlit For builiding website, hosting front end website
         
         ### Python Package
-        numpy
+        sklearn
         
-        pandas
-            
-        pydeck
+        numpy, pandas
 
-        matplotlib
-            
-        seaborn
+        matplotlib,seaborn for plotting graph
         
         mysql
-        
-        Data courtesy of the [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/)
-        from Kaggle.
 
     """
+    )
+    st.markdown("""---""")
+
+    st.markdown(
+        """
+        Data courtesy of the [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/)
+        from Kaggle and Library of Congress [API](https://www.loc.gov/apis/).
+        
+        """
+
     )
 
 
