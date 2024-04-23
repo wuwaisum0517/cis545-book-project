@@ -189,18 +189,20 @@ def book_recommendation_based_on_parameter():
 
 
     try:
-        debug_mode = False
+        debug_mode = True
 
         # connector to SQL server
         mydb = mysql_connection_secret()
         #choice of book
         book_title_list = load_book_title(mydb)
         book_input = st.selectbox("Select a book",book_title_list['Title'])
-        load_book_infromation = load_book_given_book_title(mydb,book_input,debug_mode)
+        load_book_information = load_book_given_book_title(mydb,book_input,debug_mode)
+        if debug_mode:
+            st.write(load_book_information)
+        requested_rating = load_book_information['Book-Rating'].mean()
+        requested_pages=load_book_information['pages'][0]
+        requested_year_of_publication=load_book_information['Year-of-Publication'][0]
 
-        requested_rating = load_book_infromation['Book-Rating'][0]
-        requested_pages=load_book_infromation['pages'][0]
-        requested_year_of_publication=load_book_infromation['Year-of-Publication'][0]
         # User age?
         # 0-100
         age_input = st.number_input("What is your age? (0-100)",min_value=0,max_value=100,value = 28)
