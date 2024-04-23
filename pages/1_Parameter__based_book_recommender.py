@@ -19,6 +19,8 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.manifold import TSNE
+
+
 def book_recommendation_based_on_parameter():
     def mysql_connection_secret():
         """
@@ -42,12 +44,12 @@ def book_recommendation_based_on_parameter():
             st.write(query + ' column name converted ' + str(dt.datetime.now()))
         return result_df
 
-    def loading_user_df (mydb, debug_mode):
+    def loading_user_df(mydb, debug_mode):
         query = 'SELECT * FROM user_df_from_cluster_df'
-        column_names = ['User-ID','Age', 'State', 'Book-Rating', 'pages', 'Year-Of-Publication']
+        column_names = ['User-ID', 'Age', 'State', 'Book-Rating', 'pages', 'Year-Of-Publication']
         if debug_mode:
             st.write("start execute sql query")
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
 
         return load
 
@@ -56,45 +58,50 @@ def book_recommendation_based_on_parameter():
         column_names = ['State']
         if debug_mode:
             st.write("start execute sql query")
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
         return load
 
-    def loading_books_info(mydb, similar_user_ids,debug_mode):
-        similar_user_ids_str = (',').join(map(str,similar_user_ids))
-        query = 'SELECT * FROM cluster_database where User_ID IN (' + similar_user_ids_str +')'
-        column_names = ['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
+    def loading_books_info(mydb, similar_user_ids, debug_mode):
+        similar_user_ids_str = (',').join(map(str, similar_user_ids))
+        query = 'SELECT * FROM cluster_database where User_ID IN (' + similar_user_ids_str + ')'
+        column_names = ['ID', 'User-ID', 'Age', 'State', 'ISBN', 'Title', 'Book-Rating', 'book-author',
+                        'Year-of-Publication', 'Publisher', 'pages']
         if debug_mode:
-            st.write("start execute sql query "+query)
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+            st.write("start execute sql query " + query)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
         return load
-    def load_book_title (mydb):
+
+    def load_book_title(mydb):
         query = 'SELECT DISTINCT Title FROM cluster_database'
         column_names = ['Title']
         if debug_mode:
-            st.write("start execute sql query "+query)
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+            st.write("start execute sql query " + query)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
         return load
-    def load_book_given_book_title(mydb, book_title,debug_mode):
+
+    def load_book_given_book_title(mydb, book_title, debug_mode):
         query = "SELECT * FROM cluster_database WHERE Title = \"{}\"".format(book_title)
 
-        column_names =['ID','User-ID','Age','State','ISBN','Title','Book-Rating','book-author','Year-of-Publication','Publisher','pages']
+        column_names = ['ID', 'User-ID', 'Age', 'State', 'ISBN', 'Title', 'Book-Rating', 'book-author',
+                        'Year-of-Publication', 'Publisher', 'pages']
         if debug_mode:
-            st.write("start execute sql query "+query)
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+            st.write("start execute sql query " + query)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
         return load
 
-    def try_books_picture(mydb, ISBN,debug_mode):
-        query = "SELECT Image_URL_M FROM books_table WHERE ISBN = \'"+ str(ISBN) +"\'"
+    def try_books_picture(mydb, ISBN, debug_mode):
+        query = "SELECT Image_URL_M FROM books_table WHERE ISBN = \'" + str(ISBN) + "\'"
 
         column_names = ['Image_URL_M']
-        load = execute_clean_data_sql_query(mydb,query,column_names,debug_mode)
+        load = execute_clean_data_sql_query(mydb, query, column_names, debug_mode)
         if len(load['Image_URL_M']) == 0:
             return ''
         else:
             if debug_mode:
                 st.write(load['Image_URL_M'])
             return load['Image_URL_M'][0]
-    def pipeline_process(users_df, new_user_data,debug_mode):
+
+    def pipeline_process(book_input, users_df, new_user_data, debug_mode):
         # Define preprocessing for numeric columns (scaling)
         numeric_features = ['Age', 'Book-Rating', 'pages', 'Year-Of-Publication']
         numeric_transformer = StandardScaler()
@@ -136,7 +143,8 @@ def book_recommendation_based_on_parameter():
         new_user_df = pd.DataFrame(new_user_data)
         if debug_mode:
             st.write("12 preprocessed_new_user start at " + str(dt.datetime.now()))
-        preprocessed_new_user = pipeline.named_steps['preprocessor'].transform(new_user_df).toarray()  # covert sparse matrix to dense array
+        preprocessed_new_user = pipeline.named_steps['preprocessor'].transform(
+            new_user_df).toarray()  # covert sparse matrix to dense array
         if debug_mode:
             st.write("13 dense array done, start predict at " + str(dt.datetime.now()))
         predicted_cluster = kmeans.predict(preprocessed_new_user)
@@ -156,60 +164,58 @@ def book_recommendation_based_on_parameter():
         similar_user_ids = selected_rows['User-ID']
 
         # Filter the DataFrame for these users
-        filtered_df = loading_books_info(mydb, similar_user_ids,debug_mode)
+        filtered_df = loading_books_info(mydb, similar_user_ids, debug_mode)
 
         # Sort the filtered DataFrame by 'Rating' in descending order
         sorted_df = filtered_df.sort_values(by='Book-Rating', ascending=False)
 
         # Get the top 5 highest-rated books
-        top_books = sorted_df.head(5)
+        top_books = sorted_df[sorted_df['Title'] != book_input].head(5)
+
         if debug_mode:
             st.write("16: final result")
             st.write(top_books)
         return top_books.reset_index()
-    def showing_result(top_books,debug_mode):
+
+    def showing_result(top_books, debug_mode):
         if debug_mode:
             st.write(top_books)
         for index, row in top_books.iterrows():
             st.subheader(row['Title'])
-            col0,col1,col2 = st.columns([1,4,2])
-            with col0:
-                st.image(try_books_picture(mydb,row['ISBN'],debug_mode))
-            with col1:
-                st.subheader('Book Information')
-                st.write("Book author: "+row['book-author'])
-                st.write('ISBN: '+row['ISBN'])
-            with col2:
+            st.write('Book Information')
+            col0, col1, col2 = st.columns([1, 4, 2])
 
+            with col0:
+                st.image(try_books_picture(mydb, row['ISBN'], debug_mode))
+            with col1:
+                st.write("Book author: " + row['book-author'])
+                st.write('ISBN: ' + row['ISBN'])
+            with col2:
                 st.write("Book Page: " + str(int(row['pages'])))
-                st.write("Year of Publication: "+str(int(row['Year-of-Publication'])))
-                st.write("Book Rating: "+str(row['Book-Rating']))
+                st.write("Year of Publication: " + str(int(row['Year-of-Publication'])))
+                st.write("Book Rating: " + str(row['Book-Rating']))
         return
 
-
-
     try:
-        debug_mode = True
+        debug_mode = False
 
         # connector to SQL server
         mydb = mysql_connection_secret()
-        #choice of book
+        # choice of book
         book_title_list = load_book_title(mydb)
-        book_input = st.selectbox("Select a book",book_title_list['Title'])
-        load_book_information = load_book_given_book_title(mydb,book_input,debug_mode)
-        if debug_mode:
-            st.write(load_book_information)
-        requested_rating = load_book_information['Book-Rating'].mean()
-        requested_pages=load_book_information['pages'][0]
-        requested_year_of_publication=load_book_information['Year-of-Publication'][0]
+        book_input = st.selectbox("Select a book", book_title_list['Title'])
+        load_book_information = load_book_given_book_title(mydb, book_input, debug_mode)
 
+        requested_rating = load_book_information['Book-Rating'][0]
+        requested_pages = load_book_information['pages'][0]
+        requested_year_of_publication = load_book_information['Year-of-Publication'][0]
         # User age?
         # 0-100
-        age_input = st.number_input("What is your age? (0-100)",min_value=0,max_value=100,value = 28)
+        age_input = st.number_input("What is your age? (0-100)", min_value=0, max_value=100, value=28)
         requested_age = [age_input]
-        options = loading_state(mydb,debug_mode)['State']
+        options = loading_state(mydb, debug_mode)['State']
         # User state
-        state_input = st.selectbox("Which state you comes from?",options,index = 5)
+        state_input = st.selectbox("Which state you comes from?", options, index=5)
         requested_state = [state_input]  # Example location
 
 
@@ -234,9 +240,9 @@ def book_recommendation_based_on_parameter():
         if debug_mode:
             st.write(new_user_data)
 
-        users_df = loading_user_df(mydb,debug_mode)
-        top_books = pipeline_process(users_df, new_user_data,debug_mode)
-        showing_result(top_books,debug_mode)
+        users_df = loading_user_df(mydb, debug_mode)
+        top_books = pipeline_process(book_input, users_df, new_user_data, debug_mode)
+        showing_result(top_books, debug_mode)
 
     except URLError as e:
         st.error(
@@ -246,10 +252,6 @@ def book_recommendation_based_on_parameter():
         """
             % e.reason
         )
-
-
-
-
 
     return
 
