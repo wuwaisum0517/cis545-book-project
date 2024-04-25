@@ -212,11 +212,11 @@ def book_recommendation_based_on_parameter():
         requested_year_of_publication = load_book_information['Year-of-Publication'][0]
         # User age?
         # 0-100
-        age_input = st.number_input("What is your age? (0-100)", min_value=0, max_value=100, value=28)
+        age_input = st.number_input("Please enter your age in years (0-100)", min_value=0, max_value=100, value=28)
         requested_age = [age_input]
         options = loading_state(mydb, debug_mode)['State']
         # User state
-        state_input = st.selectbox("Which state you comes from?", options, index=5)
+        state_input = st.selectbox("Please enter the state you are from.", options, index=5)
         requested_state = [state_input]  # Example location
 
 
@@ -249,9 +249,9 @@ def book_recommendation_based_on_parameter():
 
 
 st.set_page_config(page_title="Book Recommender System Demo", page_icon="📊")
-st.markdown("# BookExplorer")
-st.sidebar.header("Book Recommender System")
+st.markdown("# BookClusterer")
+st.sidebar.header("Clustering-based Book Recommender System")
 
-st.subheader('Our system will recommend books for you to check out based on the book you choose, your age, and your state!')
+st.subheader('Welcome to our BookClusterer! Please input your information below to receive personalized book recommendations.')
 book_recommendation_based_on_parameter()
 show_code(book_recommendation_based_on_parameter)

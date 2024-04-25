@@ -26,7 +26,7 @@ def run():
 
     st.write("# Welcome to Our CIS 545 Group Project website! 👋")
 
-    st.sidebar.success("Select our book recommender system above.")
+    st.sidebar.success("Select a book recommendation system above.  The BookSimilarity Model allows a user to provide books that they've liked in the past, and received recommendations based on those books. The BookClusterer model allows a user to imput books and some demographic information, and receive personalized recommendations.")
 
     st.markdown(
         """
@@ -40,28 +40,25 @@ def run():
         
         San Kim
 
-        ### Project Explanation and Detail
+        ### Project Details
         
         
         **Description**  
-        This is our CIS 545 Final Project.
-        Our intention is to develop a robust methodology for predicting which books a user will like given their previous 
-        ratings. The general strategy will be to compute the predicted rating of all the other books in the data set based 
-        on the user's information, then output those with the highest predicted ratings.
-        
-        ### Technology used:
+        Welcome to the front end of our CIS 545 Group Project! Our project consists of a variety of book recommendation systems, with techniques ranging from item- and user-based collaborative filtering using cosine similarity and neural networks, to a clustering approach which encorporates user's demographic information.
+
+        Here, we've implemented two recommendation systems in this front end deployment: BookSimilarity and BookClusterer. The BookSimilarity model allows a user to input books that they've liked in the past, and receive recommendations based on those books. The BookClusterer model allows a user to input books and some demographic information, and receive personalized recommendations.
+
+        ### Technologies used:
         AWS (MySQL Server)
         
         Streamlit For builiding website, hosting front end website
         
-        ### Python Package
-        sklearn
-        
-        numpy, pandas
+        ### Python Packages
+        Data Manipulation: pandas, numpy, pyspark, SQL, csv, sklearn
 
-        matplotlib,seaborn for plotting graph
-        
-        mysql
+        Data Visualization: Plotly, Seaborn, MatPlotLib
+
+        Machine Learning: Tensorflow, Keras, Scikit-learn, NLTK, Gensim
 
     """
     )
